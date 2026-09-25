@@ -7,7 +7,7 @@ import { BAND, SOCIAL_LINKS } from "../data/band";
 const formEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
 
 const inputClass =
-  "w-full border border-line bg-surface px-4 py-3 text-base text-ink focus:border-ink focus:outline-none";
+  "w-full rounded-xl border-2 border-ink bg-surface px-4 py-3 text-base text-ink focus:outline-none focus:ring-4 focus:ring-magenta/30";
 ---
 
 <Layout
@@ -15,52 +15,52 @@ const inputClass =
   description={`Get in touch with ${BAND.name} for bookings, press and general enquiries.`}
   active="contact"
 >
-  <section class="mx-auto max-w-[1120px] px-6 pt-16 pb-12">
-    <h1 class="m-0 mb-4 font-display text-4xl font-semibold text-ink sm:text-5xl">Contact</h1>
-    <p class="m-0 max-w-[640px] text-lg leading-relaxed text-body">
-      For bookings, press or anything else, drop us a line.
+  <section class="mx-auto max-w-[1120px] px-6 pt-12 pb-10">
+    <h1 class="squiggle m-0 mb-6 font-display text-4xl font-extrabold text-ink sm:text-5xl">Contact</h1>
+    <p class="m-0 max-w-[640px] text-lg font-semibold leading-relaxed text-body">
+      Want us to play your party, pub or festival? Drop us a line.
     </p>
   </section>
 
   <section class="mx-auto grid max-w-[1120px] gap-12 px-6 pb-20 md:grid-cols-[1fr_1.4fr]">
-    <dl class="m-0 space-y-6">
+    <dl class="sticker m-0 h-fit -rotate-1 space-y-6 bg-cream p-6 sm:p-8">
       <div>
-        <dt class="mb-1 text-xs font-semibold tracking-widest text-muted uppercase">General</dt>
-        <dd class="m-0"><a href={`mailto:${BAND.email}`} class="text-lg">{BAND.email}</a></dd>
+        <dt class="mb-1 text-xs font-extrabold tracking-widest text-ink/70 uppercase">General</dt>
+        <dd class="m-0"><a href={`mailto:${BAND.email}`} class="text-lg font-bold break-all">{BAND.email}</a></dd>
       </div>
       <div>
-        <dt class="mb-1 text-xs font-semibold tracking-widest text-muted uppercase">Bookings</dt>
-        <dd class="m-0"><a href={`mailto:${BAND.bookingEmail}`} class="text-lg">{BAND.bookingEmail}</a></dd>
+        <dt class="mb-1 text-xs font-extrabold tracking-widest text-ink/70 uppercase">Bookings</dt>
+        <dd class="m-0"><a href={`mailto:${BAND.bookingEmail}`} class="text-lg font-bold break-all">{BAND.bookingEmail}</a></dd>
       </div>
       <div>
-        <dt class="mb-1 text-xs font-semibold tracking-widest text-muted uppercase">Based in</dt>
-        <dd class="m-0 text-lg text-ink">{BAND.location}</dd>
+        <dt class="mb-1 text-xs font-extrabold tracking-widest text-ink/70 uppercase">Based in</dt>
+        <dd class="m-0 text-lg font-bold text-ink">{BAND.location}</dd>
       </div>
       {SOCIAL_LINKS.length > 0 && (
         <div>
-          <dt class="mb-1 text-xs font-semibold tracking-widest text-muted uppercase">Follow</dt>
+          <dt class="mb-1 text-xs font-extrabold tracking-widest text-ink/70 uppercase">Follow</dt>
           <dd class="m-0 flex flex-wrap gap-4">
-            {SOCIAL_LINKS.map((link) => <a href={link.href} rel="noopener">{link.label}</a>)}
+            {SOCIAL_LINKS.map((link) => <a href={link.href} rel="noopener" class="font-bold">{link.label}</a>)}
           </dd>
         </div>
       )}
     </dl>
 
     {formEndpoint && (
-      <form action={formEndpoint} method="POST" class="space-y-5 border border-line bg-surface p-6 sm:p-8">
+      <form action={formEndpoint} method="POST" class="sticker space-y-5 bg-surface p-6 sm:p-8">
         <div>
-          <label for="name" class="mb-1.5 block text-sm font-medium text-ink">Name</label>
+          <label for="name" class="mb-1.5 block text-sm font-bold text-ink">Name</label>
           <input id="name" name="name" type="text" required autocomplete="name" class={inputClass} />
         </div>
         <div>
-          <label for="email" class="mb-1.5 block text-sm font-medium text-ink">Email</label>
+          <label for="email" class="mb-1.5 block text-sm font-bold text-ink">Email</label>
           <input id="email" name="email" type="email" required autocomplete="email" class={inputClass} />
         </div>
         <div>
-          <label for="message" class="mb-1.5 block text-sm font-medium text-ink">Message</label>
+          <label for="message" class="mb-1.5 block text-sm font-bold text-ink">Message</label>
           <textarea id="message" name="message" rows="6" required class={inputClass}></textarea>
         </div>
-        <button type="submit" class="bg-ink px-6 py-3 text-sm font-medium text-page hover:bg-accent-hover">
+        <button type="submit" class="btn btn-primary cursor-pointer">
           Send message
         </button>
       </form>

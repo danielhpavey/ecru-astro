@@ -20,12 +20,12 @@ const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
       {page.url.prev ? (
         <a
           href={hrefFor(page.currentPage - 1)}
-          class="border border-line px-3.5 py-2 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
+          class="rounded-full border-2 border-ink px-4 py-2 text-sm font-bold text-ink no-underline transition-colors hover:bg-cream hover:text-ink"
         >
           Previous
         </a>
       ) : (
-        <span class="border border-line px-3.5 py-2 text-sm font-semibold text-muted opacity-50">
+        <span class="rounded-full border-2 border-line px-4 py-2 text-sm font-bold text-muted opacity-60">
           Previous
         </span>
       )}
@@ -35,10 +35,10 @@ const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
           href={hrefFor(n)}
           aria-current={n === page.currentPage ? "page" : undefined}
           class:list={[
-            "border px-3.5 py-2 text-sm font-semibold transition-colors",
+            "rounded-full border-2 border-ink px-4 py-2 text-sm font-bold no-underline transition-colors",
             n === page.currentPage
-              ? "border-accent bg-accent text-white"
-              : "border-line text-ink hover:border-accent hover:text-accent",
+              ? "bg-magenta text-white hover:text-white"
+              : "text-ink hover:bg-cream hover:text-ink",
           ]}
         >
           {n}
@@ -48,12 +48,12 @@ const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
       {page.url.next ? (
         <a
           href={hrefFor(page.currentPage + 1)}
-          class="border border-line px-3.5 py-2 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
+          class="rounded-full border-2 border-ink px-4 py-2 text-sm font-bold text-ink no-underline transition-colors hover:bg-cream hover:text-ink"
         >
           Next
         </a>
       ) : (
-        <span class="border border-line px-3.5 py-2 text-sm font-semibold text-muted opacity-50">
+        <span class="rounded-full border-2 border-line px-4 py-2 text-sm font-bold text-muted opacity-60">
           Next
         </span>
       )}

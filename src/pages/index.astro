@@ -12,7 +12,7 @@ const latestPosts: PostSummary[] = sanityClient ? await sanityClient.fetch(LATES
 ---
 
 <Layout title={BAND.name} description={BAND.shortBio} active="home">
-  <section class="border-b border-line">
+  <section>
     <div class="mx-auto flex max-w-[1120px] flex-col items-center px-6 py-8 text-center sm:py-12">
       <h1 class="m-0 mb-5 w-full max-w-[560px]">
         <Image
@@ -22,30 +22,28 @@ const latestPosts: PostSummary[] = sanityClient ? await sanityClient.fetch(LATES
           sizes="(min-width: 608px) 560px, calc(100vw - 48px)"
           loading="eager"
           fetchpriority="high"
-          class="block h-auto w-full"
+          class="bob block h-auto w-full"
         />
       </h1>
-      <p class="m-0 mb-6 max-w-[560px] text-lg leading-relaxed text-body">{BAND.tagline}</p>
-      <div class="flex flex-wrap justify-center gap-3">
-        <a href="/about" class="bg-ink px-6 py-3 text-sm font-medium text-page no-underline hover:bg-accent-hover hover:text-page">
-          About the band
-        </a>
-        <a href="/contact" class="border border-ink px-6 py-3 text-sm font-medium text-ink no-underline hover:bg-ink hover:text-page">
-          Get in touch
-        </a>
+      <p class="m-0 mb-7 max-w-[560px] text-lg font-semibold leading-relaxed text-body">{BAND.tagline}</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/about" class="btn btn-primary">About the band</a>
+        <a href="/contact" class="btn btn-secondary">Book us for a gig</a>
       </div>
     </div>
   </section>
 
   <section class="scroll-reveal mx-auto max-w-[1120px] px-6 py-10 sm:py-12">
-    <p class="m-0 mx-auto max-w-[720px] text-center font-display text-2xl leading-snug text-ink sm:text-3xl">{BAND.shortBio}</p>
+    <div class="sticker mx-auto max-w-[820px] -rotate-1 bg-teal-dark px-6 py-8 text-center sm:px-12 sm:py-10">
+      <p class="m-0 font-display text-2xl leading-snug font-bold text-white sm:text-3xl">{BAND.shortBio}</p>
+    </div>
   </section>
 
   {latestPosts.length > 0 && (
     <section class="scroll-reveal">
-      <div class="mx-auto flex max-w-[1120px] items-baseline justify-between px-6 pb-6">
-        <h2 class="m-0 font-display text-3xl font-semibold text-ink">Latest news</h2>
-        <a href="/blog" class="text-sm font-medium">All posts &rarr;</a>
+      <div class="mx-auto flex max-w-[1120px] items-baseline justify-between gap-4 px-6 pb-8">
+        <h2 class="squiggle m-0 font-display text-3xl font-extrabold text-ink">Latest news</h2>
+        <a href="/blog" class="text-sm font-bold">All posts &rarr;</a>
       </div>
       <PostGrid posts={latestPosts} compact padBottom={false} />
     </section>

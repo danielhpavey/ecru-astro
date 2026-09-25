@@ -4,16 +4,23 @@
   --font-sans: "Open Sans", system-ui, sans-serif;
   --font-display: "Open Sans", system-ui, sans-serif;
 
-  /* neutral palette — swap these to restyle the whole site */
-  --color-ink: #1c1917; /* headings / base text */
-  --color-body: #44403c; /* body copy */
-  --color-muted: #78716c; /* dates, captions */
-  --color-line: #e7e5e4; /* borders / dividers */
+  /* palette sampled from the logo */
+  --color-ink: #190d34; /* logo outline: headings, borders, shadows */
+  --color-body: #3b3150; /* body copy */
+  --color-muted: #665b7a; /* dates, captions */
+  --color-line: #e6e0ee; /* subtle dividers */
   --color-page: #fafaf9; /* page background */
   --color-surface: #ffffff; /* cards, header */
-  --color-accent: #1c1917; /* links / buttons */
-  --color-accent-hover: #57534e;
-  --color-ecru: #e7e0cf; /* soft highlight band */
+  --color-accent: #a01e6b; /* links / primary buttons (magenta) */
+  --color-accent-hover: #7d1653;
+
+  --color-cream: #f4e5b2; /* logo lettering */
+  --color-teal: #27a2a5;
+  --color-teal-dark: #147074; /* teal that passes contrast with white text */
+  --color-magenta: #a01e6b;
+  --color-purple: #6a568e;
+  --color-orange: #f1600d;
+  --color-amber: #ef8d1f;
 }
 
 @layer base {
@@ -31,6 +38,75 @@
   }
 }
 
+@layer components {
+  /* Chunky outlined button with a hard offset shadow, like the logo's outline. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 2px solid var(--color-ink);
+    border-radius: 9999px;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--color-ink);
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--color-ink);
+  }
+
+  .btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-ink);
+  }
+
+  .btn-primary,
+  .btn-primary:hover {
+    background-color: var(--color-magenta);
+    color: #fff;
+  }
+
+  .btn-secondary,
+  .btn-secondary:hover {
+    background-color: var(--color-amber);
+    color: var(--color-ink);
+  }
+
+  /* Outlined card with an offset shadow. */
+  .sticker {
+    border: 2px solid var(--color-ink);
+    border-radius: 1.25rem;
+    box-shadow: 6px 6px 0 var(--color-ink);
+  }
+
+  /* The "stretch": a band of the logo's colours. */
+  .rainbow-stripe {
+    height: 6px;
+    background: linear-gradient(
+      90deg,
+      var(--color-teal),
+      var(--color-purple),
+      var(--color-magenta),
+      var(--color-orange),
+      var(--color-amber)
+    );
+  }
+
+  /* Wavy underline for section headings. Override --squiggle to recolour. */
+  .squiggle {
+    text-decoration: underline wavy var(--squiggle, var(--color-orange));
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.35em;
+    text-decoration-skip-ink: none;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .scroll-reveal {
     opacity: 0;
@@ -43,5 +119,20 @@
   .scroll-reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Gentle float for the hero logo. */
+  .bob {
+    animation: bob 4s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-1deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(1deg);
+    }
   }
 }

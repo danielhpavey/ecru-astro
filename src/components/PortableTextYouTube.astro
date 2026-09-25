@@ -8,7 +8,7 @@ const caption = node.caption as string | undefined;
 
 {videoId && (
   <figure class="my-8">
-    <div class="aspect-video w-full bg-line">
+    <div class="sticker aspect-video w-full overflow-hidden bg-ink">
       <iframe
         src={`https://www.youtube-nocookie.com/embed/${videoId}`}
         title={caption || "YouTube video"}
@@ -19,6 +19,6 @@ const caption = node.caption as string | undefined;
         allowfullscreen
       ></iframe>
     </div>
-    {caption && <figcaption class="mt-2 text-sm text-muted">{caption}</figcaption>}
+    {caption && <figcaption class="mt-4 text-sm font-semibold text-muted">{caption}</figcaption>}
   </figure>
 )}
