@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Open Sans", system-ui, sans-serif;
+  --font-display: "Open Sans", system-ui, sans-serif;
+
+  /* neutral palette — swap these to restyle the whole site */
+  --color-ink: #1c1917; /* headings / base text */
+  --color-body: #44403c; /* body copy */
+  --color-muted: #78716c; /* dates, captions */
+  --color-line: #e7e5e4; /* borders / dividers */
+  --color-page: #fafaf9; /* page background */
+  --color-surface: #ffffff; /* cards, header */
+  --color-accent: #1c1917; /* links / buttons */
+  --color-accent-hover: #57534e;
+  --color-ecru: #e7e0cf; /* soft highlight band */
+}
+
+@layer base {
+  body {
+    background-color: var(--color-page);
+    color: var(--color-ink);
+  }
+
+  a {
+    color: var(--color-accent);
+  }
+
+  a:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+
+  .scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

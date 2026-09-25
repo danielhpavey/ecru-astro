@@ -1,0 +1,62 @@
+---
+import type { Page } from "astro";
+
+interface Props {
+  page: Page<unknown>;
+  basePath: string;
+}
+
+const { page, basePath } = Astro.props;
+
+// Page 1 lives at basePath itself (e.g. /blog), later pages get a segment
+// appended (e.g. /blog/2) — matches the [...page].astro rest-param routing.
+const hrefFor = (n: number) => (n === 1 ? basePath : `${basePath}/${n}`);
+const pageNumbers = Array.from({ length: page.lastPage }, (_, i) => i + 1);
+---
+
+{page.lastPage > 1 && (
+  <div class="mx-auto max-w-[1120px] px-6 pb-20">
+    <nav aria-label="Blog pagination" class="flex flex-wrap items-center justify-center gap-2">
+      {page.url.prev ? (
+        <a
+          href={hrefFor(page.currentPage - 1)}
+          class="border border-line px-3.5 py-2 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
+        >
+          Previous
+        </a>
+      ) : (
+        <span class="border border-line px-3.5 py-2 text-sm font-semibold text-muted opacity-50">
+          Previous
+        </span>
+      )}
+
+      {pageNumbers.map((n) => (
+        <a
+          href={hrefFor(n)}
+          aria-current={n === page.currentPage ? "page" : undefined}
+          class:list={[
+            "border px-3.5 py-2 text-sm font-semibold transition-colors",
+            n === page.currentPage
+              ? "border-accent bg-accent text-white"
+              : "border-line text-ink hover:border-accent hover:text-accent",
+          ]}
+        >
+          {n}
+        </a>
+      ))}
+
+      {page.url.next ? (
+        <a
+          href={hrefFor(page.currentPage + 1)}
+          class="border border-line px-3.5 py-2 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
+        >
+          Next
+        </a>
+      ) : (
+        <span class="border border-line px-3.5 py-2 text-sm font-semibold text-muted opacity-50">
+          Next
+        </span>
+      )}
+    </nav>
+  </div>
+)}

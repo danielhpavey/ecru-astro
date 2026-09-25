@@ -1,0 +1,25 @@
+---
+import BlogPostCard from "./BlogPostCard.astro";
+import type { PostSummary } from "../sanity/types";
+
+interface Props {
+  posts: PostSummary[];
+  emptyMessage?: string;
+  columns?: 3 | 4;
+  padBottom?: boolean;
+  compact?: boolean;
+}
+
+const { posts, emptyMessage = "", columns = 3, padBottom = true, compact = false } = Astro.props;
+---
+
+<section
+  class:list={[
+    "mx-auto grid max-w-[1120px] grid-cols-1 gap-8 px-6",
+    columns === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3",
+    padBottom ? "pb-20" : "pb-12",
+  ]}
+>
+  {posts.length === 0 && emptyMessage && <p class="col-span-full text-body">{emptyMessage}</p>}
+  {posts.map((post) => <BlogPostCard post={post} compact={compact} />)}
+</section>

@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import logo from "../assets/images/the-ecru-stretch.png";
+import PostGrid from "../components/PostGrid.astro";
+import { sanityClient } from "../sanity/client";
+import { LATEST_POSTS_QUERY } from "../sanity/queries";
+import type { PostSummary } from "../sanity/types";
+import { BAND } from "../data/band";
+
+const latestPosts: PostSummary[] = sanityClient ? await sanityClient.fetch(LATEST_POSTS_QUERY) : [];
+---
+
+<Layout title={BAND.name} description={BAND.shortBio} active="home">
+  <section class="border-b border-line">
+    <div class="mx-auto flex max-w-[1120px] flex-col items-center px-6 py-14 text-center sm:py-20">
+      <h1 class="m-0 mb-8 w-full max-w-[760px]">
+        <Image
+          src={logo}
+          alt={BAND.name}
+          widths={[400, 760, 1200]}
+          sizes="(min-width: 808px) 760px, calc(100vw - 48px)"
+          loading="eager"
+          fetchpriority="high"
+          class="block h-auto w-full"
+        />
+      </h1>
+      <p class="m-0 mb-10 max-w-[560px] text-lg leading-relaxed text-body">{BAND.tagline}</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/about" class="bg-ink px-6 py-3 text-sm font-medium text-page no-underline hover:bg-accent-hover hover:text-page">
+          About the band
+        </a>
+        <a href="/contact" class="border border-ink px-6 py-3 text-sm font-medium text-ink no-underline hover:bg-ink hover:text-page">
+          Get in touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="scroll-reveal mx-auto max-w-[1120px] px-6 py-20">
+    <p class="m-0 max-w-[720px] font-display text-2xl leading-snug text-ink sm:text-3xl">{BAND.shortBio}</p>
+  </section>
+
+  {latestPosts.length > 0 && (
+    <section class="scroll-reveal">
+      <div class="mx-auto flex max-w-[1120px] items-baseline justify-between px-6 pb-8">
+        <h2 class="m-0 font-display text-3xl font-semibold text-ink">Latest news</h2>
+        <a href="/blog" class="text-sm font-medium">All posts &rarr;</a>
+      </div>
+      <PostGrid posts={latestPosts} compact />
+    </section>
+  )}
+</Layout>

@@ -1,0 +1,44 @@
+---
+import type { GetStaticPathsOptions, Page } from "astro";
+import { sanityClient } from "../../sanity/client";
+import { POSTS_LIST_QUERY } from "../../sanity/queries";
+import Layout from "../../layouts/Layout.astro";
+import PostGrid from "../../components/PostGrid.astro";
+import Pagination from "../../components/Pagination.astro";
+import type { PostSummary } from "../../sanity/types";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const PAGE_SIZE = 9;
+  const posts: PostSummary[] = sanityClient ? await sanityClient.fetch(POSTS_LIST_QUERY) : [];
+  return paginate(posts, { pageSize: PAGE_SIZE });
+}
+
+interface Props {
+  page: Page<PostSummary>;
+}
+
+const { page } = Astro.props;
+---
+
+<Layout
+  title="Blog | The Ecru Stretch"
+  description="News, gig announcements and updates from The Ecru Stretch."
+  active="blog"
+>
+  <section class="mx-auto max-w-[1120px] px-6 pt-16 pb-12">
+    <h1 class="m-0 mb-4 font-display text-4xl font-semibold text-ink sm:text-5xl">Blog</h1>
+    <p class="m-0 text-lg leading-relaxed text-body">
+      News, gig announcements and updates from the band.
+    </p>
+  </section>
+
+  <PostGrid
+    posts={page.data}
+    padBottom={page.lastPage <= 1}
+    emptyMessage={sanityClient
+      ? "No posts published yet. Check back soon."
+      : "Blog isn't connected yet: set PUBLIC_SANITY_PROJECT_ID to enable it."}
+  />
+
+  <Pagination page={page} basePath="/blog" />
+</Layout>

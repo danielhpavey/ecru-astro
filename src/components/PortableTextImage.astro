@@ -1,0 +1,22 @@
+---
+import { urlFor, buildSrcSet } from "../sanity/imageUrl";
+
+const BODY_IMAGE_WIDTHS = [400, 760, 1140, 1520];
+
+const { node } = Astro.props;
+const imageUrl = urlFor(node).width(1200).auto("format").url();
+const imageSrcSet = buildSrcSet(node, BODY_IMAGE_WIDTHS);
+
+const dimensions = node.dimensions as { width: number; height: number } | undefined;
+---
+
+<img
+  src={imageUrl}
+  srcset={imageSrcSet}
+  sizes="(min-width: 760px) 760px, 100vw"
+  width={dimensions?.width}
+  height={dimensions?.height}
+  alt={node.alt ?? ""}
+  class="my-8 block w-full"
+  loading="lazy"
+/>

@@ -1,0 +1,17 @@
+# build
+dist/
+.astro/
+.sanity/
+
+# deps
+node_modules/
+
+# os
+.DS_Store
+
+# local tooling state
+.claude/
+
+# env
+.env
+.env.local

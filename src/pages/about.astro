@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { BAND, MEMBERS } from "../data/band";
+---
+
+<Layout
+  title={`About | ${BAND.name}`}
+  description={`Who we are: the story and line-up of ${BAND.name}.`}
+  active="about"
+>
+  <section class="mx-auto max-w-[1120px] px-6 pt-16 pb-12">
+    <h1 class="m-0 mb-4 font-display text-4xl font-semibold text-ink sm:text-5xl">About us</h1>
+    <p class="m-0 max-w-[640px] text-lg leading-relaxed text-body">{BAND.shortBio}</p>
+  </section>
+
+  <section class="mx-auto grid max-w-[1120px] gap-12 px-6 pb-20 md:grid-cols-[1.4fr_1fr]">
+    <div class="scroll-reveal space-y-5 text-base leading-relaxed text-body">
+      <h2 class="m-0 font-display text-2xl font-semibold text-ink">Our story</h2>
+      <p>
+        Placeholder — how the band got together, where you're from, and what you've been up to.
+        A few short paragraphs works well here.
+      </p>
+      <p>
+        Placeholder — influences, the sound you're going for, releases and notable gigs.
+      </p>
+      <p>
+        Placeholder — what's coming next: new music, upcoming shows, anything you want people to
+        know about.
+      </p>
+    </div>
+
+    <div class="scroll-reveal">
+      <h2 class="m-0 mb-5 font-display text-2xl font-semibold text-ink">The band</h2>
+      <ul class="m-0 list-none divide-y divide-line border-y border-line p-0">
+        {MEMBERS.map((member) => (
+          <li class="flex items-baseline justify-between gap-4 py-4">
+            <span class="font-medium text-ink">{member.name}</span>
+            <span class="text-sm text-muted">{member.role}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Layout>

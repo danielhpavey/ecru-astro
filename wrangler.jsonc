@@ -1,0 +1,12 @@
+{
+  "name": "the-ecru-stretch",
+  "compatibility_date": "2026-09-25",
+  "assets": {
+    "directory": "./dist"
+  },
+  "previews": {
+    "vars": {
+      "ENVIRONMENT": "preview"
+    }
+  }
+}

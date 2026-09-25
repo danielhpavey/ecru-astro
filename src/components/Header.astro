@@ -1,0 +1,99 @@
+---
+interface Props {
+  active?: "home" | "about" | "blog" | "contact";
+}
+
+const { active } = Astro.props;
+
+const links = [
+  { key: "home", href: "/", label: "Home" },
+  { key: "about", href: "/about", label: "About" },
+  { key: "blog", href: "/blog", label: "Blog" },
+  { key: "contact", href: "/contact", label: "Contact" },
+] as const;
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-surface/95 backdrop-blur">
+  <div class="mx-auto flex max-w-[1120px] items-center justify-between gap-6 px-6 py-4">
+    <a href="/" class="font-display text-xl font-semibold tracking-tight text-ink no-underline">
+      The Ecru Stretch
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          aria-current={link.key === active ? "page" : undefined}
+          class:list={[
+            "border-b pb-0.5 text-sm font-medium tracking-wide",
+            link.key === active ? "border-ink text-ink" : "border-transparent text-muted hover:text-ink",
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <button
+      id="mobile-menu-button"
+      type="button"
+      class="flex h-10 w-10 items-center justify-center md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle menu"
+    >
+      <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" class="hidden flex-col border-t border-line bg-surface px-6 py-2 md:hidden">
+    {links.map((link) => (
+      <a
+        href={link.href}
+        aria-current={link.key === active ? "page" : undefined}
+        class:list={[
+          "border-b border-line py-3 text-[15px] font-medium last:border-b-0",
+          link.key === active ? "text-ink" : "text-muted",
+        ]}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<script>
+  const button = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("menu-icon-open");
+  const iconClose = document.getElementById("menu-icon-close");
+
+  const closeMenu = () => {
+    menu?.classList.remove("flex");
+    menu?.classList.add("hidden");
+    iconOpen?.classList.remove("hidden");
+    iconClose?.classList.add("hidden");
+    button?.setAttribute("aria-expanded", "false");
+  };
+
+  const toggleMenu = () => {
+    const isOpen = menu?.classList.contains("flex");
+    if (isOpen) {
+      closeMenu();
+    } else {
+      menu?.classList.remove("hidden");
+      menu?.classList.add("flex");
+      iconOpen?.classList.add("hidden");
+      iconClose?.classList.remove("hidden");
+      button?.setAttribute("aria-expanded", "true");
+    }
+  };
+
+  button?.addEventListener("click", toggleMenu);
+  menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+</script>

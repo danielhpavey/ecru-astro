@@ -1,0 +1,58 @@
+---
+import { urlFor, buildSrcSet } from "../sanity/imageUrl";
+import type { PostSummary } from "../sanity/types";
+
+interface Props {
+  post: PostSummary;
+  compact?: boolean;
+}
+
+const { post, compact = false } = Astro.props;
+
+const CARD_ASPECT_RATIO = 800 / 500;
+const CARD_WIDTHS = [400, 800, 1200];
+
+const imageUrl = post.mainImage
+  ? urlFor(post.mainImage).width(800).height(500).fit("crop").auto("format").url()
+  : null;
+const imageSrcSet = post.mainImage
+  ? buildSrcSet(post.mainImage, CARD_WIDTHS, { aspectRatio: CARD_ASPECT_RATIO })
+  : null;
+
+const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<a
+  href={`/blog/${post.slug}`}
+  class="group flex flex-col overflow-hidden border border-line bg-surface text-inherit no-underline transition-shadow duration-200 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+>
+  <div class="aspect-[8/5] bg-page">
+    {imageUrl && (
+      <img
+        src={imageUrl}
+        srcset={imageSrcSet}
+        sizes="(min-width: 1024px) 340px, (min-width: 640px) 45vw, 90vw"
+        width="800"
+        height="500"
+        alt={post.mainImage?.alt ?? ""}
+        class="block h-full w-full object-cover"
+        loading="lazy"
+      />
+    )}
+  </div>
+  <div class="flex flex-1 flex-col p-6">
+    <h2 class="mb-2 font-display text-xl font-semibold text-ink group-hover:underline">{post.title}</h2>
+    {!compact && post.excerpt && (
+      <p class="mb-4 text-sm leading-relaxed text-body">{post.excerpt}</p>
+    )}
+    <div class="mt-auto flex items-center gap-2 text-xs text-muted">
+      {post.authorName && <span>{post.authorName}</span>}
+      {post.authorName && <span>&middot;</span>}
+      <time datetime={post.publishedAt}>{formattedDate}</time>
+    </div>
+  </div>
+</a>

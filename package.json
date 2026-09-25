@@ -1,0 +1,35 @@
+{
+  "name": "the-ecru-stretch",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^6.0.6",
+    "@astrojs/sitemap": "^3.7.4",
+    "@sanity/astro": "^3.5.1",
+    "@sanity/client": "^8.6.2",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^6.15.0",
+    "astro": "^7.3.3",
+    "astro-portabletext": "^1.0.1",
+    "groq": "^6.15.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-is": "^19.3.0",
+    "sanity": "^6.15.0",
+    "styled-components": "^6.5.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/react-is": "^19.3.0",
+    "tailwindcss": "^4.3.3"
+  }
+}
