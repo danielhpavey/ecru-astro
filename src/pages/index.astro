@@ -13,19 +13,19 @@ const latestPosts: PostSummary[] = sanityClient ? await sanityClient.fetch(LATES
 
 <Layout title={BAND.name} description={BAND.shortBio} active="home">
   <section class="border-b border-line">
-    <div class="mx-auto flex max-w-[1120px] flex-col items-center px-6 py-14 text-center sm:py-20">
-      <h1 class="m-0 mb-8 w-full max-w-[760px]">
+    <div class="mx-auto flex max-w-[1120px] flex-col items-center px-6 py-8 text-center sm:py-12">
+      <h1 class="m-0 mb-5 w-full max-w-[560px]">
         <Image
           src={logo}
           alt={BAND.name}
-          widths={[400, 760, 1200]}
-          sizes="(min-width: 808px) 760px, calc(100vw - 48px)"
+          widths={[400, 560, 1120]}
+          sizes="(min-width: 608px) 560px, calc(100vw - 48px)"
           loading="eager"
           fetchpriority="high"
           class="block h-auto w-full"
         />
       </h1>
-      <p class="m-0 mb-10 max-w-[560px] text-lg leading-relaxed text-body">{BAND.tagline}</p>
+      <p class="m-0 mb-6 max-w-[560px] text-lg leading-relaxed text-body">{BAND.tagline}</p>
       <div class="flex flex-wrap justify-center gap-3">
         <a href="/about" class="bg-ink px-6 py-3 text-sm font-medium text-page no-underline hover:bg-accent-hover hover:text-page">
           About the band
@@ -37,17 +37,17 @@ const latestPosts: PostSummary[] = sanityClient ? await sanityClient.fetch(LATES
     </div>
   </section>
 
-  <section class="scroll-reveal mx-auto max-w-[1120px] px-6 py-20">
-    <p class="m-0 max-w-[720px] font-display text-2xl leading-snug text-ink sm:text-3xl">{BAND.shortBio}</p>
+  <section class="scroll-reveal mx-auto max-w-[1120px] px-6 py-10 sm:py-12">
+    <p class="m-0 mx-auto max-w-[720px] text-center font-display text-2xl leading-snug text-ink sm:text-3xl">{BAND.shortBio}</p>
   </section>
 
   {latestPosts.length > 0 && (
     <section class="scroll-reveal">
-      <div class="mx-auto flex max-w-[1120px] items-baseline justify-between px-6 pb-8">
+      <div class="mx-auto flex max-w-[1120px] items-baseline justify-between px-6 pb-6">
         <h2 class="m-0 font-display text-3xl font-semibold text-ink">Latest news</h2>
         <a href="/blog" class="text-sm font-medium">All posts &rarr;</a>
       </div>
-      <PostGrid posts={latestPosts} compact />
+      <PostGrid posts={latestPosts} compact padBottom={false} />
     </section>
   )}
 </Layout>
