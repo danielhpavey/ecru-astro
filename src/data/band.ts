@@ -8,7 +8,7 @@ export const BAND = {
     "The Ecru Stretch is a band. Replace this with a one- or two-sentence summary of who you are and what you sound like.",
   email: "hello@the-ecru-stretch.uk",
   bookingEmail: "booking@the-ecru-stretch.uk",
-  location: "Your town, UK",
+  location: "Exeter, UK",
 };
 
 export const MEMBERS: { name: string; role: string }[] = [
