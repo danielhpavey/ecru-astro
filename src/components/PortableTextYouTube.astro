@@ -1,0 +1,24 @@
+---
+import { getYouTubeId } from "../sanity/youtube";
+
+const { node } = Astro.props;
+const videoId = getYouTubeId(node.url);
+const caption = node.caption as string | undefined;
+---
+
+{videoId && (
+  <figure class="my-8">
+    <div class="aspect-video w-full bg-line">
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+        title={caption || "YouTube video"}
+        class="block h-full w-full"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    {caption && <figcaption class="mt-2 text-sm text-muted">{caption}</figcaption>}
+  </figure>
+)}

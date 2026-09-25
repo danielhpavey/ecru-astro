@@ -2,6 +2,7 @@
 import { PortableText } from "astro-portabletext";
 import Layout from "../../layouts/Layout.astro";
 import PortableTextImage from "../../components/PortableTextImage.astro";
+import PortableTextYouTube from "../../components/PortableTextYouTube.astro";
 import { urlFor, buildSrcSet } from "../../sanity/imageUrl";
 import { sanityClient } from "../../sanity/client";
 import { POST_DETAIL_QUERY } from "../../sanity/queries";
@@ -43,6 +44,7 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-GB", {
 const portableTextComponents = {
   type: {
     image: PortableTextImage,
+    youtube: PortableTextYouTube,
   },
 };
 
