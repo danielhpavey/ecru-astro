@@ -35,6 +35,12 @@ const imageSrcSet = post.mainImage
   ? buildSrcSet(post.mainImage, HEADER_WIDTHS, { aspectRatio: HEADER_ASPECT_RATIO })
   : null;
 
+// A video in the body is the post's real headline media, so the main image
+// is dropped from the page to avoid stacking two big visuals. It's still used
+// for the blog card and social sharing previews.
+const hasVideo = post.body?.some((block) => block._type === "youtube") ?? false;
+const showHeaderImage = imageUrl && !hasVideo;
+
 const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-GB", {
   day: "numeric",
   month: "long",
@@ -84,7 +90,7 @@ const structuredData = {
       <time datetime={post.publishedAt}>{formattedDate}</time>
     </div>
 
-    {imageUrl && (
+    {showHeaderImage && (
       <img
         src={imageUrl}
         srcset={imageSrcSet}
