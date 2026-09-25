@@ -11,7 +11,7 @@ export default defineConfig({
   name: "the-ecru-stretch",
   title: "The Ecru Stretch: Blog",
 
-  projectId: "your-project-id",
+  projectId: "icqi4alp",
   dataset: "production",
 
   plugins: [structureTool(), visionTool()],
