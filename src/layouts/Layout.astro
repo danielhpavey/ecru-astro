@@ -37,8 +37,7 @@ const imageURL = image ? new URL(image, Astro.site) : null;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <!-- favicon.svg is skipped on purpose: it's a 3MB embedded raster, and
-         browsers prefer SVG, so it would be downloaded on every first visit. -->
+    <!-- Icons are generated from src/assets/images/ecru-star-favicon.png. -->
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
