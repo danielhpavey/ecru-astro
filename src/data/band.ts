@@ -5,7 +5,7 @@ export const BAND = {
   name: "The Ecru Stretch",
   tagline: "Probably the best band in the world... Probably...",
   shortBio:
-    "We are The Ecru Stretch, a high-octane indie pop & punk covers band dedicated to one thing: turning every gig into a massive, unforgettable party.",
+    "We are The Ecru Stretch, a high-octane indie pop & punk covers band dedicated to one thing: turning every gig into a massive, unforgettable event.",
   email: "hello@the-ecru-stretch.uk",
   bookingEmail: "booking@the-ecru-stretch.uk",
   location: "Exeter, UK",
