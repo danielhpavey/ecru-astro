@@ -1,7 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
-import logo from "../assets/images/the-ecru-stretch.png";
+import logo from "../assets/images/the-ecru-stretch.svg";
 import PostGrid from "../components/PostGrid.astro";
 import { sanityClient } from "../sanity/client";
 import { LATEST_POSTS_QUERY } from "../sanity/queries";
@@ -15,11 +14,12 @@ const latestPosts: PostSummary[] = sanityClient ? await sanityClient.fetch(LATES
   <section class="border-b border-line">
     <div class="mx-auto flex max-w-[1120px] flex-col items-center px-6 py-8 text-center sm:py-12">
       <h1 class="m-0 mb-5 w-full max-w-[560px]">
-        <Image
-          src={logo}
+        {/* SVG scales cleanly, so there's no need for resized variants. */}
+        <img
+          src={logo.src}
+          width={logo.width}
+          height={logo.height}
           alt={BAND.name}
-          widths={[400, 560, 1120]}
-          sizes="(min-width: 608px) 560px, calc(100vw - 48px)"
           loading="eager"
           fetchpriority="high"
           class="block h-auto w-full"
