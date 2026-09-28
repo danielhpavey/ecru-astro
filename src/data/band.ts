@@ -21,6 +21,7 @@ export const MEMBERS: { name: string; role: string }[] = [
 // Leave href empty to hide a link.
 export const SOCIAL_LINKS: { label: string; href: string }[] = [
   { label: "Instagram", href: "https://www.instagram.com/the.ecru.stretch" },
+  { label: "Facebook", href: "https://www.facebook.com/theecrustretch" },
   { label: "Bandcamp", href: "" },
   { label: "Spotify", href: "" },
   { label: "YouTube", href: "https://www.youtube.com/@the-ecru-stretch" },
