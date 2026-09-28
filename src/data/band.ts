@@ -12,16 +12,16 @@ export const BAND = {
 };
 
 export const MEMBERS: { name: string; role: string }[] = [
-  { name: "Member One", role: "Vocals, guitar" },
-  { name: "Member Two", role: "Bass" },
-  { name: "Member Three", role: "Drums" },
-  { name: "Member Four", role: "Keys" },
+  { name: "Kat", role: "Drums" },
+  { name: "Dave", role: "Bass" },
+  { name: "Dan", role: "Guitar" },
+  { name: "Lee", role: "Vocals" },
 ];
 
 // Leave href empty to hide a link.
 export const SOCIAL_LINKS: { label: string; href: string }[] = [
-  { label: "Instagram", href: "" },
+  { label: "Instagram", href: "https://www.instagram.com/the.ecru.stretch" },
   { label: "Bandcamp", href: "" },
   { label: "Spotify", href: "" },
-  { label: "YouTube", href: "" },
+  { label: "YouTube", href: "https://www.youtube.com/@the-ecru-stretch" },
 ].filter((link) => link.href);

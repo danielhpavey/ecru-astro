@@ -1,5 +1,6 @@
 ---
 import { BAND, SOCIAL_LINKS } from "../data/band";
+import SocialIcon from "./SocialIcon.astro";
 
 const year = new Date().getFullYear();
 ---
@@ -13,7 +14,14 @@ const year = new Date().getFullYear();
     {SOCIAL_LINKS.length > 0 && (
       <nav aria-label="Social links" class="flex flex-wrap gap-5">
         {SOCIAL_LINKS.map((link) => (
-          <a href={link.href} class="text-sm text-muted hover:text-ink" rel="noopener">{link.label}</a>
+          <a
+            href={link.href}
+            class="inline-flex items-center gap-2 text-sm text-muted hover:text-ink"
+            rel="noopener"
+          >
+            <SocialIcon name={link.label} />
+            {link.label}
+          </a>
         ))}
       </nav>
     )}
