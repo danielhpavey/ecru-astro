@@ -15,7 +15,7 @@ Website for the band The Ecru Stretch. Uses: Astro, Tailwind CSS 4, and Sanity f
 - **[Tailwind CSS v4](https://tailwindcss.com/)** via `@tailwindcss/vite`. The colour palette and fonts are defined once in [src/styles/global.css](src/styles/global.css) using `@theme` (`--color-ink`, `--color-accent`, `--color-ecru` etc.). Change them there to restyle the whole site.
 - **Band details** (name, tagline, bio, emails, members, social links) live in [src/data/band.ts](src/data/band.ts). Edit that file to update copy used across pages. A social link only shows once it has an `href`.
 - [src/layouts/Layout.astro](src/layouts/Layout.astro) handles `<head>` (title, description, canonical URL, Google Fonts, Open Graph/Twitter meta), renders the header and footer, and runs a small `IntersectionObserver` script for the `.scroll-reveal` fade-in effect.
-- **[@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)** generates `sitemap.xml` from the `site` URL in [astro.config.mjs](astro.config.mjs).
+- **[@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)** generates an XML sitemap (`sitemap-index.xml` → `sitemap-0.xml`) on every build from the `site` URL in [astro.config.mjs](astro.config.mjs), including every blog post. Posts and the blog listing get a `<lastmod>` date from Sanity so Google knows what to re-crawl; `/studio` is excluded. `robots.txt` points to it. Submit `https://the-ecru-stretch.uk/sitemap-index.xml` once in [Google Search Console](https://search.google.com/search-console) → Sitemaps; after that Google re-reads it automatically.
 
 ## Blog (Sanity CMS)
 
