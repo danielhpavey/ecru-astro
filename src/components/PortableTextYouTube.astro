@@ -1,24 +1,80 @@
 ---
+import { Image } from "astro:assets";
 import { getYouTubeId } from "../sanity/youtube";
 
 const { node } = Astro.props;
 const videoId = getYouTubeId(node.url);
 const caption = node.caption as string | undefined;
+const title = caption || "YouTube video";
+
+// Click-to-load: nothing from YouTube touches the visitor's browser until they
+// press play. The thumbnail is fetched at build time and served from this
+// site (see image.domains in astro.config.mjs), so it doesn't contact Google
+// either. Full-HD thumbnails don't exist for every video, hence the fallback.
+async function thumbnailUrl(id: string) {
+  const maxres = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+  const response = await fetch(maxres, { method: "HEAD" }).catch(() => null);
+  return response?.ok ? maxres : `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+}
+
+const thumbnail = videoId ? await thumbnailUrl(videoId) : null;
 ---
 
-{videoId && (
+{videoId && thumbnail && (
   <figure class="my-8">
-    <div class="aspect-video w-full bg-line">
-      <iframe
-        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-        title={caption || "YouTube video"}
-        class="block h-full w-full"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-      ></iframe>
+    <div class="relative aspect-video w-full overflow-hidden bg-ink">
+      {/* Without JavaScript this is simply a link to the video on YouTube. */}
+      <a
+        href={`https://www.youtube.com/watch?v=${videoId}`}
+        data-youtube-id={videoId}
+        data-youtube-title={title}
+        class="group absolute inset-0 block"
+        aria-label={`Play video: ${title}`}
+      >
+        <Image
+          src={thumbnail}
+          inferSize
+          widths={[480, 760, 1140]}
+          sizes="(min-width: 720px) 720px, 100vw"
+          alt=""
+          loading="lazy"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+        <span class="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors group-hover:bg-black/25">
+          <span class="flex h-16 w-16 items-center justify-center rounded-full bg-black/75 text-white transition-transform group-hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="ml-1 h-8 w-8" fill="currentColor" aria-hidden="true">
+              <path d="M8 5.5v13l11-6.5-11-6.5Z" />
+            </svg>
+          </span>
+        </span>
+        <span class="absolute right-3 bottom-3 rounded bg-black/70 px-2 py-1 text-xs text-white">
+          Plays from YouTube
+        </span>
+      </a>
     </div>
-    {caption && <figcaption class="mt-2 text-sm text-muted">{caption}</figcaption>}
+    <figcaption class="mt-2 text-sm text-muted">
+      {caption && <span>{caption}. </span>}
+      Playing loads the video from YouTube, which may set cookies. See our{" "}
+      <a href="/cookies" class="underline">cookie policy</a>.
+    </figcaption>
   </figure>
 )}
+
+<script>
+  // Swap the thumbnail for the real player only when someone chooses to play.
+  document.querySelectorAll<HTMLAnchorElement>("a[data-youtube-id]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${link.dataset.youtubeId}?autoplay=1`;
+      iframe.title = link.dataset.youtubeTitle ?? "YouTube video";
+      iframe.className = "absolute inset-0 block h-full w-full";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.allowFullscreen = true;
+      link.replaceWith(iframe);
+      iframe.focus();
+    });
+  });
+</script>

@@ -1,4 +1,7 @@
 ---
+// Open Sans is bundled with the site rather than loaded from Google Fonts,
+// so visitors' browsers never contact Google just to render text.
+import "@fontsource-variable/open-sans/wght.css";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -44,12 +47,6 @@ const imageURL = image ? new URL(image, Astro.site) : null;
     <meta name="apple-mobile-web-app-title" content="Ecru Stretch" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#fafaf9" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content="The Ecru Stretch" />

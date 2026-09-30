@@ -27,6 +27,9 @@ const year = new Date().getFullYear();
     )}
   </div>
   <div class="border-t border-line py-5 text-xs text-muted">
-    <div class="mx-auto max-w-[1120px] px-6">&copy; {year} {BAND.name}</div>
+    <div class="mx-auto flex max-w-[1120px] flex-wrap justify-between gap-x-6 gap-y-2 px-6">
+      <span>&copy; {year} {BAND.name}</span>
+      <a href="/cookies" class="text-muted hover:text-ink">Cookie policy</a>
+    </div>
   </div>
 </footer>

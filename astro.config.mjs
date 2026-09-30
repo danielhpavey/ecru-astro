@@ -69,6 +69,12 @@ export default defineConfig({
     }),
     ...sanityIntegrations,
   ],
+  image: {
+    // YouTube thumbnails for click-to-load videos are downloaded at build time
+    // and served from this site, so visitors' browsers never contact YouTube
+    // until they press play.
+    domains: ['i.ytimg.com'],
+  },
   vite: {
     plugins: [tailwindcss()],
   },
