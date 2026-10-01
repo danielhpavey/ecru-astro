@@ -17,15 +17,36 @@ import { BAND, MEMBERS } from "../data/band";
     <div class="scroll-reveal space-y-5 text-base leading-relaxed text-body">
       <h2 class="m-0 font-display text-2xl font-semibold text-ink">Our story</h2>
       <p>
-        Placeholder — how the band got together, where you're from, and what you've been up to.
-        A few short paragraphs works well here.
+        Would you believe the bands first incarnation started up in the early 1990's. We were
+        playing gigs in an around Exeter and the South West, the set being a mixture of covers and
+        our own music.
       </p>
       <p>
-        Placeholder — influences, the sound you're going for, releases and notable gigs.
+        Our last gig in this period of our lives was at The Cavern in Exeter 1994, a really fitting
+        way to bow out on this period of our musical lives.
       </p>
       <p>
-        Placeholder — what's coming next: new music, upcoming shows, anything you want people to
-        know about.
+        After going our separate ways for close on 30 years, a few fortunate connections via Social
+        Media brought us back together for a bit of a nostalgia trip. It was then that we suggested
+        it might be a bit of a laugh to actually strap on a guitar and see if we still had what it
+        takes to make a decent racket.
+      </p>
+      <p>
+        After a couple of non-drummer practice sessions, we decided to advertise for a drummer,
+        which brought Kat into the Ecru Stretch family. Since then we have been practicing hard,
+        getting better and gradually introducing new songs into our ever expanding repertoire.
+      </p>
+      <p>
+        The first gig with our current line up was at the Cramptonbury 2026 festival in
+        Carhampton, near Minehead.
+      </p>
+      <p>
+        We wear our musical influences very firmly on our sleeves, and as you will see from our
+        social media output, these influences range from REM, The Smiths, The Cure and Talking
+        Heads amongst many others
+      </p>
+      <p>
+        We are currently working on new material and looking to get the next set of gigs arranged
       </p>
     </div>
 
@@ -33,9 +54,12 @@ import { BAND, MEMBERS } from "../data/band";
       <h2 class="m-0 mb-5 font-display text-2xl font-semibold text-ink">The band</h2>
       <ul class="m-0 list-none divide-y divide-line border-y border-line p-0">
         {MEMBERS.map((member) => (
-          <li class="flex items-baseline justify-between gap-4 py-4">
-            <span class="font-medium text-ink">{member.name}</span>
-            <span class="text-sm text-muted">{member.role}</span>
+          <li class="py-4">
+            <div class="flex items-baseline justify-between gap-4">
+              <span class="font-medium text-ink">{member.name}</span>
+              <span class="text-sm text-muted">{member.role}</span>
+            </div>
+            {member.bio && <p class="m-0 mt-1.5 text-sm leading-relaxed text-body">{member.bio}</p>}
           </li>
         ))}
       </ul>

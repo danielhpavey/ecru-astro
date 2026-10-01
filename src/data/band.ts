@@ -11,11 +11,34 @@ export const BAND = {
   location: "Exeter, UK",
 };
 
-export const MEMBERS: { name: string; role: string }[] = [
-  { name: "Kat", role: "Drums" },
-  { name: "Dave", role: "Bass" },
-  { name: "Dan", role: "Guitar" },
-  { name: "Lee", role: "Vocals" },
+export interface Member {
+  name: string;
+  role: string;
+  /** A sentence or two shown under the name on the About page. Optional. */
+  bio?: string;
+}
+
+export const MEMBERS: Member[] = [
+  {
+    name: "Kat",
+    role: "Drums",
+    bio: "Placeholder: a sentence or two about Kat.",
+  },
+  {
+    name: "Dave",
+    role: "Bass",
+    bio: "Born in Liverpool, plays a 1989 Squier Precision Bass playing through an Ashdown MAG300 Bass Combo.",
+  },
+  {
+    name: "Dan",
+    role: "Guitar",
+    bio: "Devon, born and bred. Strong of arm, thick of head. Plays a Racing Green Fender Telecaster through a Fender Vaporizer Amp",
+  },
+  {
+    name: "Lee",
+    role: "Vocals",
+    bio: "Enjoys writing songs and being self indulgent in home recording and collecting guitars.",
+  },
 ];
 
 // Leave href empty to hide a link.
