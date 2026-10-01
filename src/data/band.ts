@@ -4,8 +4,9 @@
 export const BAND = {
   name: "The Ecru Stretch",
   tagline: "Probably the best band in the world... Probably...",
+  // Use \n for a new line, or \n\n for a blank line between sections.
   shortBio:
-    "We are The Ecru Stretch, a high-octane indie pop & punk covers band dedicated to one thing: turning every gig into a massive, unforgettable event.",
+    "We are The Ecru Stretch, a high-octane indie pop & punk covers band dedicated to one thing: turning every gig into a massive, unforgettable event.\n\nBased in Exeter, Devon & gigging across the whole of the South West of England",
   email: "hello@the-ecru-stretch.uk",
   bookingEmail: "booking@the-ecru-stretch.uk",
   location: "Exeter, UK",

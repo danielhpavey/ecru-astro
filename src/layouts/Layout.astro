@@ -28,6 +28,9 @@ const {
   structuredData,
 } = Astro.props;
 
+// Meta descriptions are single-line; flatten any line breaks (e.g. from
+// BAND.shortBio) into spaces.
+const metaDescription = description.replace(/\s+/g, " ").trim();
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const imageURL = image ? new URL(image, Astro.site) : null;
 ---
@@ -38,7 +41,7 @@ const imageURL = image ? new URL(image, Astro.site) : null;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonicalURL} />
     <!-- Icons are generated from src/assets/images/ecru-star-favicon.png. -->
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
@@ -51,7 +54,7 @@ const imageURL = image ? new URL(image, Astro.site) : null;
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content="The Ecru Stretch" />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonicalURL} />
     {imageURL && <meta property="og:image" content={imageURL} />}
     <meta property="og:locale" content="en_GB" />
@@ -62,7 +65,7 @@ const imageURL = image ? new URL(image, Astro.site) : null;
 
     <meta name="twitter:card" content={imageURL ? "summary_large_image" : "summary"} />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={metaDescription} />
     {imageURL && <meta name="twitter:image" content={imageURL} />}
 
     {structuredData && (
