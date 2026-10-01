@@ -58,6 +58,8 @@ const slug = categorySlug(category);
     <CategoryLinks categories={categories} active={slug} />
   </section>
 
+  {/* Hidden section heading so the outline runs h1 → h2 → h3 (card titles). */}
+  <h2 class="sr-only">Posts in {category.title}</h2>
   <PostGrid posts={page.data} padBottom={page.lastPage <= 1} />
 
   <Pagination page={page} basePath={`/blog/category/${slug}`} />

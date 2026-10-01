@@ -35,6 +35,8 @@ const categories: Category[] = sanityClient ? await sanityClient.fetch(CATEGORIE
     <CategoryLinks categories={categories} />
   </section>
 
+  {/* Hidden section heading so the outline runs h1 → h2 → h3 (card titles). */}
+  <h2 class="sr-only">All posts</h2>
   <PostGrid
     posts={page.data}
     padBottom={page.lastPage <= 1}

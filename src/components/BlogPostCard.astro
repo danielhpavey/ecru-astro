@@ -56,7 +56,8 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-GB", {
         {categoryLabel}
       </span>
     )}
-    <h2 class="mb-2 font-display text-xl font-semibold text-ink group-hover:underline">{post.title}</h2>
+    {/* h3: cards always sit under a section h2 ("Latest news", or the hidden "All posts" on blog pages). */}
+    <h3 class="mb-2 font-display text-xl font-semibold text-ink group-hover:underline">{post.title}</h3>
     {!compact && post.excerpt && (
       <p class="mb-4 text-sm leading-relaxed text-body">{post.excerpt}</p>
     )}
