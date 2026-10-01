@@ -1,4 +1,9 @@
 ---
+// A lightweight trace of ecru-star-favicon.svg (black and red layers only),
+// since the full-detail version is ~25x larger and the texture it adds is
+// invisible at header size.
+import star from "../assets/images/ecru-star-header.svg";
+
 interface Props {
   active?: "home" | "about" | "blog" | "contact";
 }
@@ -15,7 +20,9 @@ const links = [
 
 <header class="sticky top-0 z-50 border-b border-line bg-surface/95 backdrop-blur">
   <div class="mx-auto flex max-w-[1120px] items-center justify-between gap-6 px-6 py-4">
-    <a href="/" class="font-display text-xl font-semibold tracking-tight text-ink no-underline">
+    <a href="/" class="flex items-center gap-2.5 font-display text-xl font-semibold tracking-tight text-ink no-underline">
+      {/* Decorative: the band name next to it already labels the link. */}
+      <img src={star.src} width={star.width} height={star.height} alt="" class="h-8 w-8 shrink-0" />
       The Ecru Stretch
     </a>
 
