@@ -19,7 +19,8 @@ Website for the band The Ecru Stretch. Uses: Astro, Tailwind CSS 4, and Sanity f
 
 ## Blog (Sanity CMS)
 
-- **Schemas** live in [src/sanity/schemaTypes/](src/sanity/schemaTypes/): `post` (title, slug, author, main image, categories, publish date, excerpt, rich-text body), `author`, `category`, and the Portable Text block config.
+- **Schemas** live in [src/sanity/schemaTypes/](src/sanity/schemaTypes/): `post` (title, slug, author, main image, categories, publish date, excerpt, rich-text body), `author`, `category` (title, slug, description), and the Portable Text block config.
+- **Categories:** each category with at least one post gets a page at `/blog/category/<slug>`, linked from a row of category buttons on `/blog`, from tags on each post, and labelled on the blog cards. Empty categories get no page. If a category's slug hasn't been generated in Studio yet, one is made from its title (matching what Studio's "Generate" button produces), so the address doesn't change when it's generated later.
 - **Fetching:** [src/sanity/client.ts](src/sanity/client.ts) builds the client from `PUBLIC_SANITY_PROJECT_ID`/`PUBLIC_SANITY_DATASET`. GROQ queries are in [src/sanity/queries.ts](src/sanity/queries.ts). [src/sanity/imageUrl.ts](src/sanity/imageUrl.ts) builds responsive image URLs from Sanity's image CDN.
 - **Graceful degradation:** without `PUBLIC_SANITY_PROJECT_ID`, the site still builds. The blog shows a "not connected" message and `/studio` isn't created.
 - **Embedded Studio** at `/studio` when Sanity is configured. You can also deploy a hosted Studio with `npx sanity deploy`.

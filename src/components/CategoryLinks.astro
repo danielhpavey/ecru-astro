@@ -1,0 +1,36 @@
+---
+import { categoryHref, categorySlug } from "../sanity/categories";
+import type { CategoryRef } from "../sanity/types";
+
+interface Props {
+  categories: CategoryRef[];
+  /** Slug of the category being viewed; omit on the main blog listing. */
+  active?: string;
+}
+
+const { categories, active } = Astro.props;
+
+const pill = "rounded-full border px-4 py-1.5 text-sm font-medium no-underline transition-colors";
+const activePill = `${pill} border-ink bg-ink text-page hover:text-page`;
+const idlePill = `${pill} border-line text-ink hover:border-ink hover:text-ink`;
+---
+
+{categories.length > 0 && (
+  <nav aria-label="Blog categories" class="flex flex-wrap items-center gap-2">
+    <a href="/blog" class={active ? idlePill : activePill} aria-current={active ? undefined : "page"}>
+      All posts
+    </a>
+    {categories.map((category) => {
+      const isActive = categorySlug(category) === active;
+      return (
+        <a
+          href={categoryHref(category)}
+          class={isActive ? activePill : idlePill}
+          aria-current={isActive ? "page" : undefined}
+        >
+          {category.title}
+        </a>
+      );
+    })}
+  </nav>
+)}

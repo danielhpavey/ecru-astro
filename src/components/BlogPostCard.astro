@@ -19,6 +19,12 @@ const imageSrcSet = post.mainImage
   ? buildSrcSet(post.mainImage, CARD_WIDTHS, { aspectRatio: CARD_ASPECT_RATIO })
   : null;
 
+// Plain text, not links: the whole card is already one link.
+const categoryLabel = post.categories
+  ?.filter(Boolean)
+  .map((category) => category.title)
+  .join(" · ");
+
 const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-GB", {
   day: "numeric",
   month: "long",
@@ -45,6 +51,11 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-GB", {
     )}
   </div>
   <div class="flex flex-1 flex-col p-6">
+    {categoryLabel && (
+      <span class="mb-2 text-[11px] font-semibold tracking-[0.06em] text-muted uppercase">
+        {categoryLabel}
+      </span>
+    )}
     <h2 class="mb-2 font-display text-xl font-semibold text-ink group-hover:underline">{post.title}</h2>
     {!compact && post.excerpt && (
       <p class="mb-4 text-sm leading-relaxed text-body">{post.excerpt}</p>

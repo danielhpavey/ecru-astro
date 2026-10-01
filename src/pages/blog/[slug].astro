@@ -6,6 +6,7 @@ import PortableTextYouTube from "../../components/PortableTextYouTube.astro";
 import { urlFor, buildSrcSet } from "../../sanity/imageUrl";
 import { sanityClient } from "../../sanity/client";
 import { POST_DETAIL_QUERY } from "../../sanity/queries";
+import { categoryHref } from "../../sanity/categories";
 import type { Post } from "../../sanity/types";
 
 export async function getStaticPaths() {
@@ -40,6 +41,8 @@ const imageSrcSet = post.mainImage
 // for the blog card and social sharing previews.
 const hasVideo = post.body?.some((block) => block._type === "youtube") ?? false;
 const showHeaderImage = imageUrl && !hasVideo;
+
+const categories = post.categories?.filter(Boolean) ?? [];
 
 const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-GB", {
   day: "numeric",
@@ -89,6 +92,21 @@ const structuredData = {
       {post.authorName && <span>&middot;</span>}
       <time datetime={post.publishedAt}>{formattedDate}</time>
     </div>
+
+    {categories.length > 0 && (
+      <ul class="m-0 mb-10 -mt-6 flex list-none flex-wrap gap-2 p-0" aria-label="Categories">
+        {categories.map((category) => (
+          <li>
+            <a
+              href={categoryHref(category)}
+              class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink no-underline hover:border-ink hover:text-ink"
+            >
+              {category.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
 
     {showHeaderImage && (
       <img

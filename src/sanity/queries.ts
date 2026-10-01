@@ -1,5 +1,8 @@
 import { defineQuery } from "groq";
 
+// A post's categories, as the title + slug needed to label and link them.
+const CATEGORY_REF_PROJECTION = `categories[]->{ title, "slug": slug.current }`;
+
 const POST_SUMMARY_PROJECTION = `{
   _id,
   title,
@@ -7,7 +10,8 @@ const POST_SUMMARY_PROJECTION = `{
   excerpt,
   publishedAt,
   mainImage,
-  "authorName": author->name
+  "authorName": author->name,
+  "categories": ${CATEGORY_REF_PROJECTION}
 }`;
 
 // Inline images inside `body` need their own dimensions queried explicitly,
@@ -43,6 +47,24 @@ export const POST_DETAIL_QUERY = defineQuery(`
     publishedAt,
     mainImage,
     ${BODY_WITH_IMAGE_DIMENSIONS},
-    "authorName": author->name
+    "authorName": author->name,
+    "categories": ${CATEGORY_REF_PROJECTION}
   }
+`);
+
+// Only categories with at least one published post, so none lead to an
+// empty page.
+export const CATEGORIES_QUERY = defineQuery(`
+  *[_type == "category" && count(*[_type == "post" && defined(slug.current) && references(^._id)]) > 0]
+    | order(title asc) {
+      _id,
+      title,
+      "slug": slug.current,
+      description
+    }
+`);
+
+export const POSTS_BY_CATEGORY_QUERY = defineQuery(`
+  *[_type == "post" && defined(slug.current) && $categoryId in categories[]._ref]
+    | order(publishedAt desc) ${POST_SUMMARY_PROJECTION}
 `);

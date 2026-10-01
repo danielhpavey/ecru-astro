@@ -1,0 +1,64 @@
+---
+import type { GetStaticPathsOptions, Page } from "astro";
+import { sanityClient } from "../../../../sanity/client";
+import { CATEGORIES_QUERY, POSTS_BY_CATEGORY_QUERY } from "../../../../sanity/queries";
+import { categorySlug } from "../../../../sanity/categories";
+import Layout from "../../../../layouts/Layout.astro";
+import PostGrid from "../../../../components/PostGrid.astro";
+import Pagination from "../../../../components/Pagination.astro";
+import CategoryLinks from "../../../../components/CategoryLinks.astro";
+import type { Category, PostSummary } from "../../../../sanity/types";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  if (!sanityClient) return [];
+  const client = sanityClient;
+  const PAGE_SIZE = 9;
+
+  const categories: Category[] = await client.fetch(CATEGORIES_QUERY);
+
+  const pages = await Promise.all(
+    categories.map(async (category) => {
+      const posts: PostSummary[] = await client.fetch(POSTS_BY_CATEGORY_QUERY, {
+        categoryId: category._id,
+      });
+      return paginate(posts, {
+        pageSize: PAGE_SIZE,
+        params: { category: categorySlug(category) },
+        props: { category, categories },
+      });
+    }),
+  );
+
+  return pages.flat();
+}
+
+interface Props {
+  page: Page<PostSummary>;
+  category: Category;
+  categories: Category[];
+}
+
+const { page, category, categories } = Astro.props;
+const slug = categorySlug(category);
+---
+
+<Layout
+  title={`${category.title} | Blog | The Ecru Stretch`}
+  description={category.description || `${category.title}: posts from The Ecru Stretch's blog.`}
+  active="blog"
+>
+  <section class="mx-auto max-w-[1120px] px-6 pt-16 pb-12">
+    <a href="/blog" class="mb-6 inline-block text-sm text-muted hover:text-ink">&larr; Blog</a>
+    <h1 class="m-0 mb-4 font-display text-4xl font-semibold text-ink sm:text-5xl">{category.title}</h1>
+    {category.description && (
+      <p class="m-0 mb-6 max-w-[640px] text-lg leading-relaxed whitespace-pre-line text-body">
+        {category.description}
+      </p>
+    )}
+    <CategoryLinks categories={categories} active={slug} />
+  </section>
+
+  <PostGrid posts={page.data} padBottom={page.lastPage <= 1} />
+
+  <Pagination page={page} basePath={`/blog/category/${slug}`} />
+</Layout>
