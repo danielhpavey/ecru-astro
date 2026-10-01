@@ -4,6 +4,12 @@
 export const BAND = {
   name: "The Ecru Stretch",
   tagline: "Probably the best band in the world... Probably...",
+  // Home page hero. The heading is the page's <h1>: read by search engines
+  // and screen readers but visually hidden, since the logo plays that role.
+  heroHeading: "The Ecru Stretch - Indie Pop & Punk Covers Band in Exeter, Devon",
+  heroIntro:
+    "High-octane indie pop & punk covers for gigs, weddings, and events across Exeter and the South West.",
+  logoAlt: "The Ecru Stretch - Indie Pop & Punk Covers Band Exeter",
   // Use \n for a new line, or \n\n for a blank line between sections.
   shortBio:
     "We are The Ecru Stretch, a high-octane indie pop & punk covers band dedicated to one thing: turning every gig into a massive, unforgettable event.\n\nBased in Exeter, Devon & gigging across the whole of the South West of England",

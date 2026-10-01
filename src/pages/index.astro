@@ -13,19 +13,23 @@ const latestPosts: PostSummary[] = sanityClient ? await sanityClient.fetch(LATES
 <Layout title={BAND.name} description={BAND.shortBio} active="home">
   <section class="border-b border-line">
     <div class="mx-auto flex max-w-[1120px] flex-col items-center px-6 py-8 text-center sm:py-12">
-      <h1 class="m-0 mb-5 w-full max-w-[560px]">
+      <div class="m-0 mb-5 w-full max-w-[560px]">
         {/* SVG scales cleanly, so there's no need for resized variants. */}
         <img
           src={logo.src}
           width={logo.width}
           height={logo.height}
-          alt={BAND.name}
+          alt={BAND.logoAlt}
           loading="eager"
           fetchpriority="high"
           class="block h-auto w-full"
         />
-      </h1>
-      <p class="m-0 mb-6 max-w-[560px] text-lg leading-relaxed text-body">{BAND.tagline}</p>
+      </div>
+
+      {/* The page's real heading for search engines and screen readers; the logo is its visual stand-in. */}
+      <h1 class="sr-only">{BAND.heroHeading}</h1>
+
+      <p class="m-0 mb-6 max-w-[560px] text-lg leading-relaxed text-body">{BAND.heroIntro}</p>
       <div class="flex flex-wrap justify-center gap-3">
         <a href="/about" class="bg-ink px-6 py-3 text-sm font-medium text-page no-underline hover:bg-accent-hover hover:text-page">
           About the band
