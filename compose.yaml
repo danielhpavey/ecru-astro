@@ -1,0 +1,26 @@
+# Local development: `docker compose up`, then open http://localhost:4321
+# (or the port you set with PORT=...).
+services:
+  web:
+    build: .
+    ports:
+      # Change the port on your machine with e.g. `PORT=4330 docker compose up`
+      # if 4321 is already taken by another dev server.
+      - "${PORT:-4321}:4321"
+    # Sanity, Google Calendar and contact-form settings, if you have a .env.
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      # Your source code, live: edits trigger a reload in the browser.
+      - .:/app
+      # Keeps the container's node_modules separate from your machine's, so
+      # the two installs never overwrite each other.
+      - node_modules:/app/node_modules
+    environment:
+      # Some Docker setups don't pass file-change events through to the
+      # container; polling makes live reload work regardless.
+      CHOKIDAR_USEPOLLING: "true"
+
+volumes:
+  node_modules:

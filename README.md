@@ -73,3 +73,18 @@ npm run dev       # local dev server at http://localhost:4321
 npm run build     # build the static site to dist/
 npm run preview   # preview the production build
 ```
+
+### With Docker
+
+If you'd rather not install Node locally, the dev server also runs in Docker (Node 24, matching the Cloudflare build):
+
+```bash
+docker compose up             # start the dev server at http://localhost:4321
+PORT=4330 docker compose up   # use another port if 4321 is taken
+docker compose down           # stop it
+```
+
+- Your source code is mounted into the container, so edits reload in the browser as usual.
+- `.env` is loaded automatically if it exists (for Sanity, the gig diary and the contact form).
+- `node_modules` lives in a Docker volume, separate from any local install, so the two never overwrite each other. Dependencies are reinstalled automatically on startup whenever `package-lock.json` changes. To start completely fresh: `docker compose down -v && docker compose up --build`.
+- The image is for local development only; deployment still builds on Cloudflare.
