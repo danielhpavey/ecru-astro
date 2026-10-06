@@ -45,8 +45,43 @@ const latestPosts: PostSummary[] = sanityClient ? await sanityClient.fetch(LATES
     <p class="m-0 whitespace-pre-line mx-auto max-w-[720px] text-center font-display text-2xl leading-snug text-ink sm:text-3xl">{BAND.shortBio}</p>
   </section>
 
+  <section class="border-t border-line bg-surface/50 py-12">
+    <div class="mx-auto max-w-[1120px] px-6">
+      <h2 class="mb-8 text-center font-display text-2xl font-semibold text-ink sm:text-3xl">
+        Live Music for Pubs & Private Events
+      </h2>
+
+      <div class="grid grid-cols-1 gap-8 text-left md:grid-cols-3">
+        <div class="border border-line bg-surface p-6">
+          <h3 class="mb-2 text-lg font-semibold text-ink">High-Energy Repertoire</h3>
+          <p class="text-sm leading-relaxed text-body">
+            From classic anthems by R.E.M. and The Cure to 90s/00s indie pop and punk classics, we
+            tailor setlists to keep the dance floor packed all night.
+          </p>
+        </div>
+
+        <div class="border border-line bg-surface p-6">
+          <h3 class="mb-2 text-lg font-semibold text-ink">Exeter & South West Coverage</h3>
+          <p class="text-sm leading-relaxed text-body">
+            Based in Exeter, Devon, we regularly perform across Plymouth, Torquay, Bristol, Taunton,
+            Cornwall, and throughout the South West of England.
+          </p>
+        </div>
+
+        <div class="border border-line bg-surface p-6">
+          <h3 class="mb-2 text-lg font-semibold text-ink">Tell Us About Your Event</h3>
+          <p class="text-sm leading-relaxed text-body">
+            Pub gig, party or local festival? Tell us about the venue and the crowd, and we'll shape a
+            set to suit. <a href="/contact" class="underline">Get in touch</a> for dates and
+            availability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   {latestPosts.length > 0 && (
-    <section class="scroll-reveal">
+    <section class="scroll-reveal pt-10 sm:pt-12">
       <div class="mx-auto flex max-w-[1120px] items-baseline justify-between px-6 pb-6">
         <h2 class="m-0 font-display text-3xl font-semibold text-ink">Latest news</h2>
         <a href="/blog" class="text-sm font-medium">All posts &rarr;</a>

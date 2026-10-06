@@ -11,16 +11,21 @@ const title = caption || "YouTube video";
 // press play. The thumbnail is fetched at build time and served from this
 // site (see image.domains in astro.config.mjs), so it doesn't contact Google
 // either. Full-HD thumbnails don't exist for every video, hence the fallback.
-async function thumbnailUrl(id: string) {
+// YouTube's thumbnail sizes are fixed, so they're stated here rather than
+// inferred: inferring means another fetch to YouTube, and a blip there would
+// fail the whole build.
+async function thumbnail(id: string) {
   const maxres = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
   const response = await fetch(maxres, { method: "HEAD" }).catch(() => null);
-  return response?.ok ? maxres : `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+  return response?.ok
+    ? { src: maxres, width: 1280, height: 720 }
+    : { src: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, width: 480, height: 360 };
 }
 
-const thumbnail = videoId ? await thumbnailUrl(videoId) : null;
+const thumb = videoId ? await thumbnail(videoId) : null;
 ---
 
-{videoId && thumbnail && (
+{videoId && thumb && (
   <figure class="my-8">
     <div class="relative aspect-video w-full overflow-hidden bg-ink">
       {/* Without JavaScript this is simply a link to the video on YouTube. */}
@@ -32,8 +37,9 @@ const thumbnail = videoId ? await thumbnailUrl(videoId) : null;
         aria-label={`Play video: ${title}`}
       >
         <Image
-          src={thumbnail}
-          inferSize
+          src={thumb.src}
+          width={thumb.width}
+          height={thumb.height}
           widths={[480, 760, 1140]}
           sizes="(min-width: 720px) 720px, 100vw"
           alt=""
