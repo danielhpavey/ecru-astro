@@ -29,7 +29,7 @@ export const MEMBERS: Member[] = [
   {
     name: "Kat",
     role: "Drums",
-    bio: "Kat has been playing the drums since she was eleven luckily her parents had a farm so neighbours were happy.Shes played in various bands including a support act for Badmanners...",
+    bio: "Kat has been playing the drums since she was eleven luckily her parents had a farm so neighbours were happy. She's played in various bands including a support act for Badmanners...",
   },
   {
     name: "Dave",
